@@ -1,5 +1,6 @@
 <#
-This script will remove group membership of all the de-activated users from your okta tenant
+This script will remove group membership of all the de-activated users from your okta tenant. 
+Known Limitation : It can work perfectly when your de-activated user count is less then or equal to 200
 Author : Pratik Bhatt
 #>
 <#script version 1.0
@@ -7,7 +8,7 @@ Okta API from https://github.com/gabrielsroka/OktaAPI.psm1
 Connecting to Okta API #>
 Connect-Okta "YOUR TOKEN" "https://youroktadomain.okta.com"
 #1. Get all De-activated users ; Getting De-Activated user's llist in Objects
-$page = Get-OktaUsers -filter 'status eq "DEPROVISIONED"'
+$page = Get-OktaUsers -filter 'status eq "DEPROVISIONED"' # NOTE : This will get only first 200 users in the list
 $users = $page.objects
 #2. condition in-case there are no de-activated users, print that no deactivated  users are there.
 if ($null -eq $page.objects) 
